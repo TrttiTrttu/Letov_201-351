@@ -8,6 +8,7 @@ int main() {
 	int b;
 	cout << "Введите коэффициенты a * x = b: " ;
 	cin >> a >> b;
+	cout << a << " * x "<< "= " << b << std::endl;
 	if (b == 0) {
 		cout << "x = 0";
 	}
@@ -16,3 +17,4 @@ int main() {
 	}
 	return  0;
 }
+
