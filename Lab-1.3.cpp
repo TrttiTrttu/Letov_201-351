@@ -8,7 +8,7 @@ int main() {
 	cout << "Enter number: ";
 	cin >> num;
 	cout << num << std::endl;
-	cout << "Binary: " << std::bitset<8>(num) << std::endl;
+	cout << "Binary: " << std::bitset<16>(num) << std::endl;
 	cout << "Hex: " << std::hex << num << std::endl;
 	cout << "Boolean: " << bool(num) << std::endl;
 	cout << "Char: " << char(num);
