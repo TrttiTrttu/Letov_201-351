@@ -5,7 +5,7 @@ using std::cout;
 int main() {
 	int x1;
 	int x2;
-	cout<< "Введите координаты отрезка на прямой: ";
+	cout<< "Enter the coordinates: ";
 	cin >> x1 >> x2;
-	cout << "Середина отрезка находится в точке с координатой: " << (x1 + x2) / 2.0;
+	cout << "Coordinates of midpoint: " << (x1 + x2) / 2.0;
 }
