@@ -19,7 +19,7 @@ void task1() {
 	}
 }
 
-int factorial(int num) {
+long long factorial(int num) {
 	if (num == 0) return 1;
 	else {
 		return num * factorial(num - 1);
@@ -29,13 +29,13 @@ void task2() {
 	int  n;
 	cin >> n;
 	for (int i = 0; i <= n; i++) {
-		cout << factorial(n) / (factorial(n - i)*factorial(i)) << " ";
+		cout << factorial(n)/ (factorial(n - i)*factorial(i)) << " ";
 	}
 	cout << "\n";
 }
 
 void task3() {
-	getchar();
+	//getchar();
 	string S;
 	double sum = 0;
 	int counter = 0;
@@ -75,6 +75,9 @@ int main() {
 			break;
 		case 4:
 			flag = false;
+			break;
+		default:
+			cout << "error. enter again";
 			break;
 		}
 	}
