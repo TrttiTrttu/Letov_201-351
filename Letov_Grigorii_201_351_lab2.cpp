@@ -10,7 +10,6 @@ using std::getline;
 
 void task1() {
 	int n;
-	cout << "Выполнение 1-го задания:\nВведите n: ";
 	cin >> n;
 	for (int i = 0; i <= n; i++) {
 		for (int j = 0; j <= i; j++) {
@@ -26,10 +25,8 @@ int factorial(int num) {
 		return num * factorial(num - 1);
 	}
 }
-
 void task2() {
 	int  n;
-	cout << "Выполнение 2-го задания:\nВведите n: ";
 	cin >> n;
 	for (int i = 0; i <= n; i++) {
 		cout << factorial(n) / (factorial(n - i)*factorial(i)) << " ";
@@ -40,7 +37,6 @@ void task2() {
 void task3() {
 	getchar();
 	string S;
-	cout << "Выполнение 3-го задания:\nВведите коор-ды точек(окончание ввода пустая строка):\n";
 	double sum = 0;
 	int counter = 0;
 	int buf;
@@ -55,25 +51,26 @@ void task3() {
 			counter++;
 		}
 	}
-	cout << sum << " " << counter << endl;
-	cout << "Среднее арифметическое = " << sum / counter << endl;
+	cout << "arithmetic mean = " << sum / counter << endl;
 }
 
 int main() {
-	setlocale(LC_ALL, "Russian");
 	int choice;
 	bool flag = true;
 	while (flag) {
-		cout << "\nменю заданий:\n1 - \"пирамидка\"\n2 - бином коэф-фы\n3 - сред. арифм-ое\n4 - выход" << endl;
+		cout << "\nChoose your task:\n1 - \"pyramid\"\n2 - binomial coefficients\n3 - arithmetic mean\n4 - exit" << endl;
 		cin >> choice;
 		switch (choice) {
 		case 1:
+			cout << "Task 1:\nenter number: ";
 			task1();
 			break;
 		case 2:
+			cout << "Task 2:\nenter numbers: ";
 			task2();
 			break;
 		case 3:
+			cout << "Task 3:\nenter numbers(end of input - empty string)\n";
 			task3();
 			break;
 		case 4:
@@ -81,5 +78,5 @@ int main() {
 			break;
 		}
 	}
-	cout << "нажмите любую клавишу для выхода\n";
+	cout << "press any button\n";
 }

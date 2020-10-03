@@ -23,7 +23,6 @@ int main() {
 	cout << "min char  = " << numeric_limits<char>::min() << ", max char = " << numeric_limits<char>::max() << ", size of char = " << sizeof(char) << endl;
 	cout << "min boolean  = " << numeric_limits<bool>::min() << ", max bool = " << numeric_limits<bool>::max() << ", size of bool = " << sizeof(bool) << endl;
 
-
 	//task3
 	int num;
 	cout << "\nEnter number: ";
