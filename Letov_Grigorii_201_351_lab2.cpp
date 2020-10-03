@@ -35,7 +35,7 @@ void task2() {
 }
 
 void task3() {
-	//getchar();
+	getchar();
 	string S;
 	double sum = 0;
 	int counter = 0;
