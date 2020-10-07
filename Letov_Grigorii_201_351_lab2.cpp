@@ -35,12 +35,12 @@ void task2() {
 }
 
 void task3() {
-	getchar();
+	cin.ignore(32767, '\n');
 	string S;
 	double sum = 0;
 	int counter = 0;
 	int buf;
-	while (true) {
+	do {
 		getline(cin, S);
 		if (S.empty()) {
 			break;
@@ -49,8 +49,8 @@ void task3() {
 			buf = atoi(S.c_str());
 			sum += buf;
 			counter++;
-		}
-	}
+		} 
+	} while (true);
 	cout << "arithmetic mean = " << sum / counter << endl;
 }
 
