@@ -50,7 +50,6 @@ void count_sort(char* arr, int len) {
 		j = int(arr_ch[i] - 'A');
 		counter[j] += 1;
 	}
-	print_mas(counter);
 	int i = 0;
 	j = 0;
 	while (j <= amount) {
@@ -95,10 +94,6 @@ void Merge(int* arr, int* d, int begin, int end)
 
 void MergeSort(int* arr, int* d, int left, int right)
 {
-	for (int i = 0; i < 10; i++) {
-		cout << arr[i] << "  ";
-	}
-	cout << endl;
 	int  t;
 	if (left < right)
 		if (right - left == 1) {
@@ -118,8 +113,37 @@ void MergeSort(int* arr, int* d, int left, int right)
 
 
 int main() {
-	init_massiv();
-	MergeSort(arr, d, 0, len - 1);
-	print_mas(arr);
+	int choice;
+	bool flag = true;
+	while (flag) {
+		cout << "Choose task: \n1.bubble sort \n2.count sort \n3.merge sort \n4.exit \n";
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			init_massiv();
+			print_mas(arr);
+			bubble_sort(arr, len);
+			print_mas(arr);
+			break;
+		case 2:
+			init_massiv_char();
+			print_mas(arr_ch);
+			count_sort(arr_ch, len);
+			print_mas(arr_ch);
+			break;
+		case 3:
+			init_massiv();
+			print_mas(arr);
+			MergeSort(arr, d, 0, len - 1);
+			print_mas(arr);
+			break;
+		case 4:
+			flag = false;
+			break;
+		default:
+			cout << "try again \n";
+			break;
+		}
+	}
 	return 0;
 }
