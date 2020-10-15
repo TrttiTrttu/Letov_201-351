@@ -1,31 +1,32 @@
 ﻿#include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <string>
 
 
 using std::cin;
 using std::cout;
 using std::swap;
+using std::endl;
 
 const int len = 10;
 int arr[len];
+int d[len] = { 0 };
 char arr_ch[len];
 
-template <typename X>
 
-void print_mas(X* arr,int len) {
+
+void init_massiv() {
+	srand(time(0));
+	for (int i = 0; i < len; i++)
+		arr[i] = rand() % 100;
+}
+
+template <typename X>
+void print_mas(X* arr) {
 	for (int k = 0; k < len; k++)
 		cout << arr[k] << '\t';
 	cout << '\n';
 }
-
-void init_massiv() {
-	srand(time(0));
-	for (int i = 0; i < len; i++) 
-		arr[i] = rand() % 20;
-}
-
 void init_massiv_char() {
 	srand(time(0));
 	for (int i = 0; i < 10; i++)
@@ -41,41 +42,6 @@ void bubble_sort(int* arr, int len) {
 	}
 }
 
-int length(int *arr) {
-	int arrbuf[len];
-	for (int i = 0; i < len; i++) {
-		arrbuf[i] = arr[i];
-	}
-	cout << sizeof(arrbuf) << sizeof(*arrbuf) << '\n';
-	return sizeof(arrbuf) / sizeof(*arrbuf);
-}
-
-void Merge(int* sumArr, int* arr1, int* arr2) {
-	int arr1min = 0;
-	int arr2min = 0;
-	int sumArrmin = 0;
-	
-	while (arr1min < sizeof(arr1) / sizeof (*arr1) && arr2min < sizeof(arr2) / sizeof(*arr2)) {
-		if (arr1[arr1min] <= arr2[arr2min]) {
-			sumArr[sumArrmin] = arr1[arr1min];
-			arr1min++;
-		}
-		else {
-			sumArr[sumArrmin] = arr1[arr2min];
-			arr2min++;
-		}
-		sumArrmin++;
-	}
-	while (arr1min < sizeof(arr1) / sizeof(*arr1)) {
-		sumArr[sumArrmin] = arr1[arr1min];
-		arr1min++;
-	}
-	while (arr2min < sizeof(arr2) / sizeof(*arr2)) {
-		sumArr[sumArrmin] = arr1[arr2min];
-		arr2min++;
-	}
-}
-
 void count_sort(char* arr, int len) {
 	int const amount = 26;
 	int counter[amount] = { 0 };
@@ -84,7 +50,7 @@ void count_sort(char* arr, int len) {
 		j = int(arr_ch[i] - 'A');
 		counter[j] += 1;
 	}
-	print_mas(counter,amount);
+	print_mas(counter);
 	int i = 0;
 	j = 0;
 	while (j <= amount) {
@@ -99,15 +65,61 @@ void count_sort(char* arr, int len) {
 	}
 }
 
+void Merge(int* arr, int* d, int begin, int end)
+{
+	int i = begin;
+	int t = 0;
+	int sred = begin + (end - begin) / 2;
+	int j = sred + 1;
+
+	while (i <= sred && j <= end) {
+		if (arr[i] <= arr[j]) {
+			d[t] = arr[i];
+			i++;
+		}
+		else {
+			d[t] = arr[j];
+			j++;
+		}
+		t++;
+	}
+	while (i <= sred) {
+		d[t] = arr[i]; i++; t++;
+	}
+	while (j <= end) {
+		d[t] = arr[j]; j++; t++;
+	}
+	for (i = 0; i < t; i++)
+		arr[begin + i] = d[i];
+}
+
+void MergeSort(int* arr, int* d, int left, int right)
+{
+	for (int i = 0; i < 10; i++) {
+		cout << arr[i] << "  ";
+	}
+	cout << endl;
+	int  t;
+	if (left < right)
+		if (right - left == 1) {
+			if (arr[right] < arr[left]) {
+				t = arr[left];
+				arr[left] = arr[right];
+				arr[right] = t;
+			}
+		}
+		else {
+			MergeSort(arr, d, left, left + (right - left) / 2);
+			MergeSort(arr, d, left + (right - left) / 2 + 1, right);
+			Merge(arr, d, left, right);
+		}
+}
+
+
+
 int main() {
 	init_massiv();
-	cout << sizeof(arr)/sizeof(*arr) << '\n';
-	cout << length(arr) << '\n';
+	MergeSort(arr, d, 0, len - 1);
+	print_mas(arr);
 	return 0;
-	/*
-	int arr[] = { 10,20,30,40,50,60,70 };
-	cout << sizeof(arr) << ' ' << sizeof(arr[0]) << '\n';
-	int arrSize = sizeof(arr) / sizeof(arr[0]);
-	cout << "The size of the array is: " << arrSize;
-	return 0;*/
 }
