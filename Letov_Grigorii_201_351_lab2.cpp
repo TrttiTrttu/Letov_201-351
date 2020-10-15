@@ -25,13 +25,26 @@ long long factorial(int num) {
 		return num * factorial(num - 1);
 	}
 }
-void task2() {
+/*void task2() {
 	int  n;
 	cin >> n;
 	for (int i = 0; i <= n; i++) {
 		cout << factorial(n)/ (factorial(n - i)*factorial(i)) << " ";
 	}
 	cout << "\n";
+}*/
+
+void task2() {
+	unsigned long coef;
+	int n;
+	cin >> n;
+	coef = 1;
+	for (int j = 0; j <= n; j++) {
+		cout << coef << endl;
+		coef *= (n - j);
+		coef /= (j + 1);
+	}
+
 }
 
 void task3() {
