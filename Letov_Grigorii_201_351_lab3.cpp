@@ -42,8 +42,10 @@ void print_mas(X* arr) {
 void bubble_sort(int* arr, int len) {
 	for (int i = 0; i < len; i++) {
 		for (int j = 0; j < len - i - 1; j++) {
-			if (arr[j] > arr[j + 1])
+			if (arr[j] > arr[j + 1]) {
 				swap(arr[j], arr[j + 1]);
+				print_mas(arr);
+			}
 		}
 	}
 }
@@ -74,8 +76,8 @@ void count_sort(char* arr, int len) {
 
 void Merge(int* arr, int* buf, int left, int right)
 {
-	int b1 = left;
 	int counter = 0;
+	int b1 = left;
 	int mid = left + (right - left) / 2;
 	int b2 = mid + 1;
 
@@ -109,8 +111,10 @@ void MergeSort(int* arr, int left, int right)
 {
 	if (left < right)
 		if (right - left == 1) {
-			if (arr[right] < arr[left]) 
+			if (arr[right] < arr[left]){ 
 				swap(arr[left], arr[right]);
+				print_mas(arr);
+			}
 		}
 		else {
 			MergeSort(arr, left, left + (right - left) / 2);
