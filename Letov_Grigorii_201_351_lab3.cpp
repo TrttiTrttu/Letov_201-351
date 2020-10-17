@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <cstdlib>
 #include <ctime>
 
 
@@ -9,13 +8,16 @@ using std::swap;
 using std::endl;
 
 
-const int len = 10;
-int arr[len] = { 0 };
-int buf[len] = { 0 };
-char arr_ch[len]={ ' ' };
+const int n = 1000;
+int len = 0;
+int arr[n] = { 0 };
+int buf[n] = { 0 };
+char arr_ch[n]={ ' ' };
 
 
 void init_massive(bool isint) {
+	cout << "Enter length: ";
+	cin >> len;
 	if (isint) {
 		srand(time(0));
 		for (int i = 0; i < len; i++)
@@ -72,47 +74,47 @@ void count_sort(char* arr, int len) {
 
 void Merge(int* arr, int* buf, int left, int right)
 {
-	int i = left;
-	int t = 0;
+	int b1 = left;
+	int counter = 0;
 	int mid = left + (right - left) / 2;
-	int j = mid + 1;
+	int b2 = mid + 1;
 
-	while (i <= mid && j <= right) {
-		if (arr[i] <= arr[j]) {
-			buf[t] = arr[i];
-			i++;
+	while (b1 <= mid && b2 <= right) {
+		if (arr[b1] <= arr[b2]) {
+			buf[counter] = arr[b1];
+			b1++;
 		}
 		else {
-			buf[t] = arr[j];
-			j++;
+			buf[counter] = arr[b2];
+			b2++;
 		}
-		t++;
+		counter++;
 	}
-	while (i <= mid) {
-		buf[t] = arr[i]; i++; t++;
+	while (b1 <= mid) {
+		buf[counter] = arr[b1];
+		b1++;
+		counter++;
 	}
-	while (j <= right) {
-		buf[t] = arr[j]; j++; t++;
+	while (b2 <= right) {
+		buf[counter] = arr[b2];
+		b2++;
+		counter++;
 	}
-	for (i = 0; i < t; i++)
-		arr[left + i] = buf[i];
+	for (b1 = 0; b1 < counter; b1++)
+		arr[left + b1] = buf[b1];
 }
 
 
-void MergeSort(int* arr, int* buf, int left, int right)
+void MergeSort(int* arr, int left, int right)
 {
-	int  t;
 	if (left < right)
 		if (right - left == 1) {
-			if (arr[right] < arr[left]) {
-				t = arr[left];
-				arr[left] = arr[right];
-				arr[right] = t;
-			}
+			if (arr[right] < arr[left]) 
+				swap(arr[left], arr[right]);
 		}
 		else {
-			MergeSort(arr, buf, left, left + (right - left) / 2);
-			MergeSort(arr, buf, left + (right - left) / 2 + 1, right);
+			MergeSort(arr, left, left + (right - left) / 2);
+			MergeSort(arr, left + (right - left) / 2 + 1, right);
 			Merge(arr, buf, left, right);
 		}
 }
@@ -141,7 +143,7 @@ int main() {
 		case 3:
 			init_massive(true);
 			print_mas(arr);
-			MergeSort(arr, buf, 0, len - 1);
+			MergeSort(arr, 0, len - 1);
 			print_mas(arr);
 			break;
 		case 4:
