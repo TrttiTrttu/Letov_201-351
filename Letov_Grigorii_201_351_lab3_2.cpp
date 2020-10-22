@@ -159,7 +159,7 @@ void MergeSort(int* arr,int* buf, int left, int right, int len, bool iseven)
 int main() {
 	int *arr = nullptr;
 	int *buf = nullptr;
-	int len;
+	int len = 0;
 	int choice;
 	while (true) {
 		cout << "1.input massive \n2.print_massive \n3.merge_even_sort \n4.last_num_sort \n5.exit\n";
@@ -182,6 +182,7 @@ int main() {
 			break;
 		}
 		case 5:
+			cout << "good bye";
 			return 0;
 		default:
 			cout << "try again\n";
