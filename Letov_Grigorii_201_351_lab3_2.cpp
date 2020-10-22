@@ -182,7 +182,9 @@ int main() {
 			break;
 		}
 		case 5:
-			cout << "good bye";
+			if (arr != nullptr) delete[] arr;
+			if (buf != nullptr) delete[] buf;
+			cout << "exit";
 			return 0;
 		default:
 			cout << "try again\n";
