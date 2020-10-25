@@ -1,0 +1,175 @@
+#include <iostream>
+#include <cstring>
+#include <Windows.h>
+
+using std::cin;
+using std::cout;
+
+void palindrom(char* str) // принимает указатель на строку
+{
+	bool flag = true; // переменная-флаг 
+	for (int l = 0, r = strlen(str) - 1; l < r; ) // до тех пор пока сдвиграемые границы не встретятся в середине
+		if (str[l] != ' ' && str[r] != ' ') // если оба элемента не пробелы 
+			if (int(str[l]) == int(str[r]) || abs(int(str[l]) - int(str[r])) == 32 || abs(int(str[l]) - int(str[r])) == 80) // проверка на разные регистры по таблице ASCII
+			{
+				r--; l++; // сдвиг счетчиков левой и правой границы
+			}
+			else // если элементы различаются
+			{
+				flag = false; break; // флан на ложь и выход из цикла
+			}
+		else if (str[l] == ' ' && str[r] != ' ')  // если левая граница пробел
+			l++; // сдвиг левого счеттчика
+		else if (str[l] != ' ' && str[r] == ' ') // если правый элемент пробед
+			r--; // сдвиг правого счетчика
+		else if (str[l] == ' ' && str[r] == ' ') // если оба элементы пробелы
+		{
+			l++; // сдвиг левого
+			r--; // и правого счетчика
+		}
+	cout << ((flag) ? "Палиндром" : "Не палиндром"); // тернарный оператор в зависости от значения флага
+}
+
+void cesar_code(char* str, int num) //принимает указатель на строку и константу ключа шифра
+{
+	num %= 26; // преобразование ключа на слуай, если он будет больше длины алфавита
+	char str_for_encrypt[255]{}; // объявление пустой строки для декодированной строки
+	for (int i = 0; i < strlen(str); i++) 
+		if (str[i] != ' ') // если элемент не пробел
+			if(int(str[i]) + num < int('z') + 1) // проверка что сдвиг не вылезает за границу алфавита
+				str_for_encrypt[i] = char(int(int(str[i]) + num)); // изменение элемента по таблице ASCII путем явных преобразований
+			else
+				str_for_encrypt[i] = char(int('a' + int(str[i]) + num - 'z' - 1)); // изменение если сдвиг вылазит за границу алфавита
+	str_for_encrypt[strlen(str)] = '\0'; // добавление нуля-терминатора в конце строки
+	cout << str_for_encrypt;
+}
+
+void names(char* str)
+{
+	char buf[255]{}; // объявление пустой строки, в которую будут записываться "названия"
+	for (int i = 0; i < strlen(str); i++)
+	{
+		int counter = 0; // счетчик кавычек  
+		if (str[i] == '\"') // если встретилась ПЕРВАЯ кавычка
+		{
+			counter++; // увеличение счетчика кавычек
+			i++; // увеличение индекса элемента чтобы пропустить кавычку
+			int j = 0; // отдельный счетчик для строки-буфера
+			while (counter < 2)
+			{
+				buf[j] = str[i]; // копирование "названия" в буфер
+				i++; // увеличение счетчика цикла for ( счетчик исходной строки )
+				j++; // увеличение счетчика буфера
+				if (str[i] == '\"') counter++; // если встретилась ВТОРАЯ кавычка
+			}
+			buf[j] = '\0'; // добавление нуля-терминатора в конце буфера
+			cout << buf << '\t';
+		}
+	}
+}
+
+void clear(char *str) // принимет указатель на строку  
+{
+	for (int i = 0; i < strlen(str); i++)
+		str[i] = '.'; // заполянет массив точками
+}
+
+void find(char* str, char* substr) // принимает указатели на строку и подстроку
+{
+	char buf[255]{}; // объявление буферной строки
+	char* pbuf = buf; 
+	for (int i = 0; i < strlen(str); )
+	{
+		int counter = 0; // объявление счетчика
+		if (str[i] == substr[counter])
+		{
+			int index = i; // объявление перменной, в которой будет хранится номер первого элемента предполагаемой подстроки 
+			while (str[i] == substr[counter] && substr[counter] != '\0') // != \0 нужно чтобы while не вылез за границу подстроки
+			{
+				buf[counter] = str[i]; // в buf копируются элементы из строки
+				i++;
+				counter++;
+			}
+			if (strcmp(substr, buf) == 0)
+				cout << "index = " << index << '\t';
+			clear(pbuf);
+			continue;
+		}
+		i++;
+	}
+}
+
+int main()
+{
+	SetConsoleCP(1251); // функции из Windows.h 
+	SetConsoleOutputCP(1251); // для локализации ввода\вывода консоли
+	char str[255]{}; // объявление пустой строки
+	char substr[255]{}; // объявление пустой подстроки для 2-го задания
+	char* pstr = str; // объявление указателя на строку
+	char* psubstr = substr; // объявление указателя на подстроку
+	int choice = 0; 
+	while (true)
+	{
+		cout << "choose your task:\n"
+			"1. palindrom\n"
+			"2. find substring\n"
+			"3. cesar code\n"
+			"4. \"names\"\n"
+			"5. exit\n";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1: 
+		{
+			cout << "Введите строку для полиндрома: \n";
+			cin.get();
+			cin.getline(str, 255);
+			palindrom(pstr);
+			cout << '\n';
+			break;
+		}
+		case 2:
+		{
+			cout << "Введите строку: \n";
+			cin.get();
+			cin.getline(str, 255);
+			cout << "Введите подстроку для поиска: \n";
+			cin.getline(substr, 255);
+			find(pstr, psubstr);
+			cout << '\n';
+			break;
+		}
+		case 3:
+		{
+			cout << "Введите строку для шифорвания: \n";
+			cin.get();
+			cin.getline(str,255);
+			cout << "Введите ключ шифра: \n";
+			int num = 0;
+			cin >> num;
+			cesar_code(pstr, num);
+			cout << '\n';
+			break;
+		}
+		case 4:
+		{
+			cout << "Введите строку поиска названий: \n";
+			cin.get();
+			cin.getline(str, 255);
+			names(pstr);
+			cout << '\n';
+			break;
+		}
+		case 5:
+		{
+			cout << "exit";
+			return 0;
+		}
+		default:
+		{
+			cout << "try again\n";
+			break;
+		}
+		}
+	}
+}
