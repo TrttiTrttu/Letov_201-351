@@ -160,7 +160,7 @@ int main() {
 	int *arr = nullptr;
 	int *buf = nullptr;
 	int len = 0;
-	int choice;
+	int choice = 0;
 	while (true) {
 		cout << "1.input massive \n2.print_massive \n3.merge_even_sort \n4.last_num_sort \n5.exit\n";
 		cin >> choice;
