@@ -2,5 +2,5 @@
 
 int main()
 {
-	std::cout << sizeof(int*);
+	
 }
