@@ -10,7 +10,7 @@ void palindrom(char* str) // принимает указатель на строку
 	bool flag = true; // переменна€-флаг 
 	for (int l = 0, r = strlen(str) - 1; l < r; ) // до тех пор пока сдвиграемые границы не встрет€тс€ в середине
 		if (str[l] != ' ' && str[r] != ' ') // если оба элемента не пробелы 
-			if (int(str[l]) == int(str[r]) || abs(int(str[l]) - int(str[r])) == 32 || abs(int(str[l]) - int(str[r])) == 80) // проверка на разные регистры по таблице ASCII
+			if (int(str[l]) == int(str[r]) || abs(int(str[l]) - int(str[r])) == 32) // проверка на разные регистры по таблице ASCII
 			{
 				r--; l++; // сдвиг счетчиков левой и правой границы
 			}
@@ -74,10 +74,10 @@ void clear(char *str) // принимет указатель на строку
 		str[i] = '.'; // запол€нет массив точками
 }
 
-void find(char* str, char* substr) // принимает указатели на строку и подстроку
+bool* find(char* str, char* substr) // принимает указатели на строку и подстроку
 {
-	char buf[255]{}; // объ€вление буферной строки
-	char* pbuf = buf; 
+	char* buf = new char[strlen(str)]{}; // объ€вление буферной строки
+	bool* index_arr = new bool[strlen(str)]{ false };
 	for (int i = 0; i < strlen(str); )
 	{
 		int counter = 0; // объ€вление счетчика
@@ -90,23 +90,24 @@ void find(char* str, char* substr) // принимает указатели на строку и подстроку
 				i++;
 				counter++;
 			}
-			if (strcmp(substr, buf) == 0)
-				cout << "index = " << index << '\t';
-			clear(pbuf);
-			continue;
+			if (strcmp(substr, buf) == 0)// если буфер равен подстроке 
+				index_arr[index] = true;  // переключени€ флага в элементах, инедкс которых совпадает с индексом вхождени€ 
+			clear(buf); // очищение буфера
+			continue; // переход на следующую итерацию, чтобы не было лишней инкременации счетчика i
 		}
 		i++;
 	}
+	delete[] buf;
+	return index_arr;
 }
 
 int main()
 {
 	SetConsoleCP(1251); // функции из Windows.h 
 	SetConsoleOutputCP(1251); // дл€ локализации ввода\вывода консоли
-	char str[255]{}; // объ€вление пустой строки
-	char substr[255]{}; // объ€вление пустой подстроки дл€ 2-го задани€
-	char* pstr = str; // объ€вление указател€ на строку
-	char* psubstr = substr; // объ€вление указател€ на подстроку
+	char* pstr = new char[255]{}; // объ€вление пустой строки
+	char* psubstr = new char[255]{}; // объ€вление пустой подстроки дл€ 2-го задани€
+	bool* index = nullptr; // объ€вление пустого указател€ дл€ подсчета индексов вхождени€
 	int choice = 0; 
 	while (true)
 	{
@@ -123,7 +124,7 @@ int main()
 		{
 			cout << "¬ведите строку дл€ полиндрома: \n";
 			cin.get();
-			cin.getline(str, 255);
+			cin.getline(pstr, 255);
 			palindrom(pstr);
 			cout << '\n';
 			break;
@@ -132,18 +133,21 @@ int main()
 		{
 			cout << "¬ведите строку: \n";
 			cin.get();
-			cin.getline(str, 255);
+			cin.getline(pstr, 255);
 			cout << "¬ведите подстроку дл€ поиска: \n";
-			cin.getline(substr, 255);
-			find(pstr, psubstr);
-			cout << '\n';
+			cin.getline(psubstr, 255);
+			index = find(pstr, psubstr);
+			for (int i = 0; i < strlen(pstr); i++)
+				if (index[i] != false)
+					cout << "index = " << i << '\n';
+			delete[] index;
 			break;
 		}
 		case 3:
 		{
 			cout << "¬ведите строку дл€ шифорвани€: \n";
 			cin.get();
-			cin.getline(str,255);
+			cin.getline(pstr,255);
 			cout << "¬ведите ключ шифра: \n";
 			int num = 0;
 			cin >> num;
@@ -155,13 +159,15 @@ int main()
 		{
 			cout << "¬ведите строку поиска названий: \n";
 			cin.get();
-			cin.getline(str, 255);
+			cin.getline(pstr, 255);
 			names(pstr);
 			cout << '\n';
 			break;
 		}
 		case 5:
 		{
+			delete[] psubstr;
+			delete[] pstr;
 			cout << "exit";
 			return 0;
 		}
