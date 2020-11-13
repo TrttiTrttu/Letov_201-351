@@ -61,14 +61,13 @@ bool file_rename(string* file_path_full)
 }
 
 
-bool file_copy(const string file_path_full)
+bool file_copy(string file_path_full)
 {
-	string path_copy = file_path_full;
 	ifstream original(file_path_full, ifstream::in);// C:\\GITHUB\\desktop\\Letov_201-351\\files\\original.txt
 		if (original.is_open()) 
 		{
 			ofstream copy;
-			copy.open(path_copy.replace(path_copy.find('.'), 4 ,"_copy.txt"), ofstream::out | ofstream::app);
+			copy.open(file_path_full.replace(file_path_full.find('.'), 4 ,"_copy.txt"), ofstream::out | ofstream::app);
 			string buf;
 			getline(original, buf);
 			copy << buf;
