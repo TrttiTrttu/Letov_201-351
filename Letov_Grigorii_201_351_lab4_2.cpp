@@ -67,7 +67,7 @@ bool file_copy(string file_path_full)
 		if (original.is_open()) 
 		{
 			ofstream copy;
-			copy.open(file_path_full.replace(file_path_full.find('.'), 4 ,"_copy.txt"), ofstream::out | ofstream::app);
+			copy.open(file_path_full.replace(file_path_full.find('.'), 4 ,"_copy." + file_format(file_path_full)), ofstream::out | ofstream::app);
 			string buf;
 			getline(original, buf);
 			copy << buf;
