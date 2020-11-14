@@ -1,6 +1,6 @@
-#include "matrix.h"
 #include <iostream>
 #include <ctime>
+#include "mat.h"
 
 using std::cin;
 using std::cout;
@@ -37,8 +37,9 @@ void matrix::print()
 	{
 		for (int j = 0; j < columns; j++)
 			cout << elem[i * columns + j] << '\t';
-		cout << '\n';
+		cout << "\n";
 	}
+	cout << "\n";
 }
 
 int matrix::get_columns()
@@ -50,6 +51,16 @@ int matrix::get_rows()
 {
 	return rows;
 }
+
+bool matrix::msum(const matrix* mat2)
+{
+	if (columns != mat2->columns || rows != mat2->rows)
+		return false;
+	for (int i = 0; i < columns * rows; i++)
+		this->elem[i] += mat2->elem[i];
+	return true;
+}
+
 
 double matrix::get_elem(int i, int j)
 {
