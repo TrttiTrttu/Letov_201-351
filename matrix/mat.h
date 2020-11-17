@@ -16,7 +16,8 @@ public:
 	double trace();
 	bool msum(const matrix* mat2);
 	double get_elem(int i, int j);
-	void mult(const matrix* mat2);
+	bool mult(const matrix* mat2);
 	void copy(const matrix* mat2);
+	double det();
 };
 

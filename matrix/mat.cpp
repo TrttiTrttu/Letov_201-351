@@ -28,7 +28,7 @@ void matrix::input()
 	srand(time(0));
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < columns; j++)
-			elem[i * columns + j] = rand() % 10
+			cin >> elem[i * columns + j]; //= rand() % 10
 ;
 }
 
@@ -92,14 +92,59 @@ void matrix::copy(const matrix* mat2)
 		this->elem[i] = mat2->elem[i];
 }
 
-void matrix::mult(const matrix* mat2)
+double matrix::det()
+{
+	matrix MatrBuf;
+	MatrBuf.copy(this);
+	int cols = 0;
+	while (cols < MatrBuf.get_columns() - 1)
+	{
+		for (int i = 1; i < MatrBuf.get_rows(); i++)
+		{
+			if (MatrBuf.get_elem(0, 0) == 0)
+			{
+				if (MatrBuf.get_elem(i, 0) != 0)
+				{
+					for (int k = 0; k < MatrBuf.get_columns(); k++)
+						MatrBuf.elem[k] -= MatrBuf.elem[i * columns + k];
+					cout << "qwer ";
+					MatrBuf.print();
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		for (int rows = cols + 1; rows < MatrBuf.get_rows(); rows++)
+		{
+			if (MatrBuf.get_elem(rows, cols) != 0) {
+				int counter = rows;
+				while (MatrBuf.get_elem(counter, cols) == 0 && counter != MatrBuf.get_rows() - 1)
+					counter++;
+				double koef = MatrBuf.get_elem(counter, cols) / MatrBuf.get_elem(cols, cols);
+				for (int i = 0; i < MatrBuf.get_columns(); i++)
+				{
+					MatrBuf.elem[rows * columns + i] -= koef * MatrBuf.get_elem(cols, i);
+				}
+			}
+		}
+		cols++;
+	}
+	double det = 1;
+	for (int i = 0; i < MatrBuf.get_columns(); i++)
+		det *= MatrBuf.get_elem(i, i);
+	return det;
+}
+
+bool matrix::mult(const matrix* mat2)
 {
 	if (this->columns == mat2->rows)
 	{
 		matrix MatrBuf;
 		MatrBuf.copy(this);
 
-		delete[] elem;
+		delete[] this->elem;
 		this->columns = mat2->columns;
 		this->elem = new double[double(this->columns) * this->rows]{ 0 };
 
@@ -107,8 +152,12 @@ void matrix::mult(const matrix* mat2)
 			for (int j = 0; j < columns; j++)
 				for (int k = 0; k < MatrBuf.columns; k++)
 					this->elem[i * columns + j] += MatrBuf.get_elem(i, k) * mat2->elem[k * mat2->columns + j];
+		return true;
 	}
 	else
+	{
 		cout << "error \n";
+		return false;
+	}
 }
 

@@ -10,9 +10,6 @@ int main()
 	matrix MatrB;
 	MatrA.input();
 	MatrA.print();
-	MatrB.input();
-	MatrB.print();
-	MatrA.mult(&MatrB);
-	MatrA.print();
+	cout << MatrA.det();
 	return 0;
 }
