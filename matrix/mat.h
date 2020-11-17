@@ -12,7 +12,11 @@ public:
 	void print();
 	int get_columns();
 	int get_rows();
+	void mult_by_num(double num);
+	double trace();
 	bool msum(const matrix* mat2);
 	double get_elem(int i, int j);
+	void mult(const matrix* mat2);
+	void copy(const matrix* mat2);
 };
 

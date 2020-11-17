@@ -12,7 +12,7 @@ int main()
 	MatrA.print();
 	MatrB.input();
 	MatrB.print();
-	MatrA.msum(&MatrB);
+	MatrA.mult(&MatrB);
 	MatrA.print();
 	return 0;
 }
