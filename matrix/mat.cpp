@@ -27,13 +27,16 @@ void matrix::input()
 	elem = new double[double(this->columns) * this->rows]{ 0 };
 	srand(time(0));
 	for (int i = 0; i < rows; i++)
+	{
 		for (int j = 0; j < columns; j++)
 			cin >> elem[i * columns + j]; //= rand() % 10
-;
+		cout << '\n';
+	}
 }
 
 void matrix::print()
 {
+	cout << "matrix = \n";
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < columns; j++)
@@ -97,8 +100,10 @@ double matrix::det()
 	matrix MatrBuf;
 	MatrBuf.copy(this);
 	int cols = 0;
+
 	while (cols < MatrBuf.get_columns() - 1)
 	{
+
 		for (int i = 1; i < MatrBuf.get_rows(); i++)
 		{
 			if (MatrBuf.get_elem(0, 0) == 0)
@@ -116,6 +121,7 @@ double matrix::det()
 				break;
 			}
 		}
+
 		for (int rows = cols + 1; rows < MatrBuf.get_rows(); rows++)
 		{
 			if (MatrBuf.get_elem(rows, cols) != 0) {
@@ -131,9 +137,12 @@ double matrix::det()
 		}
 		cols++;
 	}
+
 	double det = 1;
+
 	for (int i = 0; i < MatrBuf.get_columns(); i++)
 		det *= MatrBuf.get_elem(i, i);
+
 	return det;
 }
 
