@@ -6,7 +6,10 @@ using std::cout;
 
 int main()
 {
-	matrix matA;
+	double arr[9]{ 0,1,2,3,4,5,6,7,8 };
+	matrix matA(3,3);
+	matA.input(3, 3,arr);
+	//matA.input(matA.get_rows(), matA.get_columns());
 	int choice = 0;
 	while (true)
 	{
@@ -32,7 +35,7 @@ int main()
 		}
 		case 2:
 		{
-			matA.print();
+			cout << matA;
 			break;
 		}
 		case 3:
