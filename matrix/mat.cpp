@@ -1,5 +1,4 @@
-#include <iostream>
-#include <ctime>
+
 #include "mat.h"
 
 using std::cin;
@@ -38,7 +37,7 @@ matrix::~matrix()
 }
 
 
-void matrix::input()
+/*void matrix::input()
 {
 	cout << "Rows:  ";
 	cin >> rows;
@@ -46,7 +45,7 @@ void matrix::input()
 	cin >> columns;
 	if (this->elem != nullptr)
 		delete[] this->elem;
-	this -> elem = new double[double(this->columns) * this->rows]{ 0 };
+	this -> elem = new double[this->columns * this->rows]{ 0 };
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < columns; j++)
@@ -93,7 +92,7 @@ void matrix::copy(const matrix* mat2)
 	this->rows = mat2->rows;
 	if (elem != nullptr)
 		delete[] elem;
-	this->elem = new double[double(this->columns) * this->rows]{ 0 };
+	this->elem = new double[this->columns * this->rows]{ 0 };
 	for (int i = 0; i < columns * rows; i++)
 		this->elem[i] = mat2->elem[i];
 }
@@ -133,7 +132,7 @@ bool matrix::mult(const matrix* mat2)
 
 		delete[] this->elem;
 		this->columns = mat2->columns;
-		this->elem = new double[double(this->columns) * this->rows]{ 0 };
+		this->elem = new double[this->columns * this->rows]{ 0 };
 
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
@@ -148,9 +147,9 @@ bool matrix::mult(const matrix* mat2)
 	}
 }
 
-bool matrix::mult(const double* arr, int rows, int cols)
+bool matrix::mult(const double* arr, int loc_rows, int loc_cols)
 {
-	if (this->columns != rows)
+	if (this->columns != loc_rows)
 	{
 		cout << "error\n";
 		return false;
@@ -158,13 +157,13 @@ bool matrix::mult(const double* arr, int rows, int cols)
 	matrix MatrBuf(this->rows,this->columns,this->elem);
 
 	delete[] this->elem;
-	this->columns = cols;
-	this->elem = new double[double(this->columns) * this->rows]{ 0 };
+	this->columns = loc_cols;
+	this->elem = new double[this->columns * this->rows]{ 0 };
 
 	for (int i = 0; i < this ->rows; i++)
 		for (int j = 0; j < this -> columns; j++)
 			for (int k = 0; k < MatrBuf.columns; k++)
-				this->elem[i * columns + j] += MatrBuf.get_elem(i, k) * arr[k * cols + j];
+				this->elem[i * columns + j] += MatrBuf.get_elem(i, k) * arr[k * loc_cols + j];
 	return true;
 }
 
@@ -178,9 +177,9 @@ bool matrix::msum(const matrix* mat2)
 	return true;
 }
 
-bool matrix::msum(const double* arr,int rows, int cols)
+bool matrix::msum(const double* arr,int loc_rows, int loc_cols)
 {
-	if (this->rows != rows && this->columns != cols)
+	if (this->rows != rows && this->columns != loc_cols)
 		return false;
 	for (int i = 0; i < this -> columns * this -> rows; i++)
 		this->elem[i] += arr[i];
