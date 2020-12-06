@@ -42,6 +42,8 @@ threematr::~threematr()
 		delete[] elem;
 }
 
+
+
 void threematr::input()
 {
 	cout << "Size:  ";
@@ -183,7 +185,6 @@ void threematr::copy(threematr* mat2)
 	for (int i = 0; i < size * size; i++)
 		this->elem[i] = mat2->elem[i];
 }
-
 
 
 
