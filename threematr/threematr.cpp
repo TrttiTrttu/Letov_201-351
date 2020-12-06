@@ -28,6 +28,14 @@ threematr::threematr(int i, const double* arr)
 		elem[(i + 1) * size + i] = arr[arr_counter];
 }
 
+threematr::threematr(const threematr& mat2)
+{
+	this->size = mat2.size;
+	this->elem = new double[this->size * this->size]{ 0 };
+	for (int i = 0; i < size * size; i++)
+		this->elem[i] = mat2.elem[i];
+}
+
 threematr::~threematr()
 {
 	if (elem != nullptr)
@@ -94,6 +102,16 @@ void threematr::print()
 int threematr::get_size()
 {
 	return size;
+}
+
+double threematr::get_elem(int i, int j)
+{
+	return elem[i * size + j];
+}
+
+void threematr::set_elem(int i, int j, double temp)
+{
+	 elem[i * size + j] = temp;
 }
 
 void threematr::mult_by_num(double num)
@@ -202,53 +220,56 @@ std::istream& operator>>(std::istream& in, threematr& right)
 	return in;
 }
 
-threematr& operator+(threematr& left, const threematr& right)
+threematr operator+(const threematr& left, const threematr& right)
 {
+	threematr MatrBuf(right);
 	for (int rows = 0; rows < right.size; rows++)
 	{
 		for (int columns = 0; columns < right.size; columns++)
 		{
-			left.elem[rows * left.size + columns] += right.elem[rows * right.size + columns];
+			MatrBuf.elem[rows * MatrBuf.size + columns] = right.elem[rows * right.size + columns]+ left.elem[rows * left.size + columns];
 		}
 	}
-	return left;
+	cout << MatrBuf;
+	return MatrBuf;
 }
 
-threematr& operator-(threematr& left, const threematr& right)
+threematr operator-(const threematr& left, const threematr& right)
 {
-	for (int rows = 0; rows < right.size; rows++)
+	threematr MatrBuf(left);
+
+	for (int rows = 0; rows < MatrBuf.size; rows++)
 	{
-		for (int columns = 0; columns < right.size; columns++)
+		for (int columns = 0; columns < MatrBuf.size; columns++)
 		{
-			left.elem[rows * left.size + columns] -= right.elem[rows * right.size + columns];
+			MatrBuf.elem[rows * left.size + columns] = left.elem[rows * left.size + columns] - right.elem[rows * right.size + columns];
 		}
 	}
-	return left;
+	return MatrBuf;
 }
 
-threematr& operator-(threematr& mat)
+threematr operator*(const threematr& left, const threematr& right)
 {
-	for (int i = 0; i < mat.size * mat.size; i++)
-		if (mat.elem[i] != 0)
-			mat.elem[i] = -mat.elem[i];
-	return mat;
-}
-
-threematr& operator*(threematr& left, const threematr& right)
-{
-	threematr MatrBuf;
-	MatrBuf.copy(&left);
-
-	delete[] left.elem;
-	left.size = right.size;
-	left.elem = new double[left.size * left.size]{ 0 };
+	threematr MatrBuf(left.size);
 
 	for (int i = 0; i < left.size; i++)
 		for (int j = 0; j < left.size; j++)
 			for (int k = 0; k < MatrBuf.size; k++)
-				left.elem[i * left.size + j] += MatrBuf.elem[i * left.size + k] * right.elem[k * right.size + j];
-	return left;
+				MatrBuf.elem[i * MatrBuf.size + j] += left.elem[i * left.size + k] * right.elem[k * right.size + j];
+	
+	return MatrBuf;
 }
 
+threematr operator-(const threematr& mat)
+{
+	threematr MatrBuf(mat);
 
-
+	for (int i = 0; i < MatrBuf.get_size(); i++)
+		for (int j = 0; j < MatrBuf.get_size(); j++)
+		{
+			if (MatrBuf.get_elem(i, j) != 0)
+				MatrBuf.set_elem(i, j, -MatrBuf.get_elem(i, j));
+		}
+	
+	return MatrBuf;
+}
