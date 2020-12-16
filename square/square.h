@@ -12,6 +12,7 @@ protected:
 public:
 	square();
 	square(int loc_x, int loc_y, int loc_lng);
+	~square();
 
 	int get_lngth();
 	void set_lngth(int loc_lng);

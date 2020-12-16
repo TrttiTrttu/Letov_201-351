@@ -12,6 +12,7 @@ protected:
 public:
 	circle();
 	circle(int loc_x, int loc_y, int loc_rds);
+	~circle();
 
 	int get_radius();
 	void set_radius(int loc_rds);

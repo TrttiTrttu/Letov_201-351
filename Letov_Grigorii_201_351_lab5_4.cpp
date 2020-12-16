@@ -9,12 +9,12 @@ using std::cout;
 
 int main()
 {
-	crlinsqr srclin(99, 99, 99, 99);
-	cout << srclin;
-	cin >> srclin;
-	cout << srclin;
-	srclin.set_coords(5, 5);
-	srclin.set_radius(5);
-	srclin.set_lngth(5);
-	cout << srclin;
+	crlinsqr crlin(99, 99, 99, 99);
+	cout << crlin;
+	cin >> crlin;
+	cout << crlin;
+	crlin.set_coords(5, 5);
+	crlin.set_radius(5);
+	crlin.set_lngth(5);
+	cout << crlin;
 }

@@ -231,7 +231,6 @@ threematr operator+(const threematr& left, const threematr& right)
 			MatrBuf.elem[rows * MatrBuf.size + columns] = right.elem[rows * right.size + columns]+ left.elem[rows * left.size + columns];
 		}
 	}
-	cout << MatrBuf;
 	return MatrBuf;
 }
 
@@ -272,5 +271,27 @@ threematr operator-(const threematr& mat)
 				MatrBuf.set_elem(i, j, -MatrBuf.get_elem(i, j));
 		}
 	
+	return MatrBuf;
+}
+
+threematr operator*(const threematr& left,const int& num)
+{
+	threematr MatrBuf(left);
+	
+	for (int i = 0; i < MatrBuf.get_size(); i++)
+		for (int j = 0; j < MatrBuf.get_size(); j++)
+			MatrBuf.set_elem(i, j, MatrBuf.get_elem(i, j) * num);
+
+	return MatrBuf;
+}
+
+threematr operator*(const int& num, const threematr& left)
+{
+	threematr MatrBuf(left);
+
+	for (int i = 0; i < MatrBuf.get_size(); i++)
+		for (int j = 0; j < MatrBuf.get_size(); j++)
+			MatrBuf.set_elem(i, j, MatrBuf.get_elem(i, j) * num);
+
 	return MatrBuf;
 }

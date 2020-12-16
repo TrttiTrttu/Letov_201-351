@@ -2,16 +2,16 @@
 
 circle::circle() : position()
 {
-	x = 0;
-	y = 0;
 	radius = 0;
 }
 
-circle::circle(int loc_x, int loc_y, int loc_rds)
+circle::circle(int loc_x, int loc_y, int loc_rds) : position(loc_x, loc_y)
 {
-	x = loc_x;
-	y = loc_y;
 	radius = loc_rds;
+}
+
+circle::~circle()
+{
 }
 
 int circle::get_radius()

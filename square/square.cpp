@@ -1,17 +1,17 @@
 #include "square.h"
 
-square::square()
+square::square() : position()
 {
-	x = 0;
-	y = 0;
 	side_length = 0;
 }
 
-square::square(int loc_x, int loc_y, int loc_lng)
+square::square(int loc_x, int loc_y, int loc_lng) : position(loc_x, loc_y)
 {
-	x = loc_x;
-	y = loc_y;
 	side_length = loc_lng;
+}
+
+square::~square()
+{
 }
 
 int square::get_lngth()

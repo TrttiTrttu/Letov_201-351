@@ -16,6 +16,10 @@ crlinsqr::crlinsqr(int loc_x, int loc_y, int loc_rds, int loc_lng)
 	side_length = loc_lng;
 }
 
+crlinsqr::~crlinsqr()
+{
+}
+
 std::istream& operator>>(std::istream& in, crlinsqr& tmp)
 {
 	cout << "Enter x, y, radius, side_length: ";

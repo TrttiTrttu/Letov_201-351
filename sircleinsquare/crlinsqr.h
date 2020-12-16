@@ -11,6 +11,7 @@ class crlinsqr :
 public:
 	crlinsqr();
 	crlinsqr(int loc_x, int loc_y, int loc_radius, int loc_lng);
+	~crlinsqr();
 
 	friend std::istream& operator>>(std::istream& in, crlinsqr& tmp);
 	friend std::ostream& operator<<(std::ostream& out, const crlinsqr& tmp);

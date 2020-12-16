@@ -32,10 +32,16 @@ public:
 	
 	
 	friend std::ostream& operator<<(std::ostream& out, const threematr& right);
-	friend std::istream& operator>> (std::istream& in, threematr& right);
+	friend std::istream& operator>>(std::istream& in, threematr& right);
+	
 	friend threematr operator+(const threematr& left, const threematr& right);
 	friend threematr operator-(const threematr& left, const threematr& right);
+	
 	friend threematr operator*(const threematr& left, const threematr& right);
 };
+
 threematr operator-(const threematr& mat);
+
+threematr operator*(const threematr& left,const int& num);
+threematr operator*(const int& num, const threematr& left);
 
