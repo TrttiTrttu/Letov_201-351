@@ -7,13 +7,14 @@ using std::cout;
 using std::string;
 using std::stack;
 
-bool check(string str)
+bool check(string& str)
 {
 	stack<char> stk;
 	for (int i = 0; i < str.length(); i++)
 	{
 		if (str[i] == '(' || str[i] == '{' || str[i] == '[')
 			stk.push(str[i]);
+
         switch (str[i])
         {
         case ')':
