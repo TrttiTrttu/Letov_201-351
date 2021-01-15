@@ -70,7 +70,8 @@ int main()
 		}
 		default:
 		{
-			cout << "try again";
+			cout << "try again\n";
+			break;
 		}
 		}
 	}

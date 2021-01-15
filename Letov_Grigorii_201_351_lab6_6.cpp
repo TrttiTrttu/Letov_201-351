@@ -46,9 +46,8 @@ int main()
 			j++;
 		lastbuf = buf;
 	}
-	map <string, int>::iterator it = words.begin();
 	cout << "total words: " << k << '\n';
-	for (; it != words.end(); it++) {
+	for (auto it = words.begin(); it != words.end(); it++) {
 		cout << it->first << " " << it->second / k * 100 << "%\n";
 	}
 

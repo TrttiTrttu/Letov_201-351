@@ -18,7 +18,8 @@ bool palindrom(string* str)
 		if (dq.front() != dq.back())
 			return false;
 		dq.pop_back();
-		dq.pop_front();
+		if (dq.size() != 1)
+			dq.pop_front();
 	}
 	return true;
 }
