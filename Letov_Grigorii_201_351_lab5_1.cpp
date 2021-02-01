@@ -1,5 +1,5 @@
 #include <iostream>
-#include "C:\GITHUB\Letov_201_351\matrix\mat.h"
+#include "D:\visualka\letov 201_351\matrix\mat.h"
 
 using std::cin;
 using std::cout;
